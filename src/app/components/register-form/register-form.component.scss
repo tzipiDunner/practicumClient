@@ -1,0 +1,33 @@
+mat-form-field{
+    display: flex;
+    flex-direction: column;
+    max-width: 200px;
+    margin-top: 2.5vh;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+form{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+#submit{
+    margin-left: 85vw;
+}
+h3{
+    font-size: 33px;
+    color: rgb(72, 72, 172);
+}
+p{
+    font-size: 20px;
+    color: rgb(72, 72, 172);
+    align-items: center; 
+    text-align: center;   
+    margin-top: 1.7vh;
+}
+#childForm{
+    display: flex;
+    flex-direction: row;
+}

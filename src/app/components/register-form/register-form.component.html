@@ -1,0 +1,87 @@
+<form #myForm="ngForm" (ngSubmit)="onSubmitForm()">
+    <mat-form-field appearance="fill">
+        <mat-label>First name</mat-label>
+        <input name="firstName" #firstName="ngModel" [(ngModel)]="user.FirstName" matInput required pattern="^[a-zA-Zא-ת]*$" [errorStateMatcher]="matcher">
+        <mat-error *ngIf="firstName.touched && firstName.errors && firstName.errors['pattern']">Please enter a valid name</mat-error>
+        <mat-error *ngIf="firstName.touched && firstName.errors && firstName.errors['required']">First name is <strong>required</strong></mat-error> 
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+        <mat-label>Family name</mat-label>
+        <input name="lastName" #lastName="ngModel" [(ngModel)]="user.LastName" matInput required pattern="^[ a-zA-Zא-ת]*$" [errorStateMatcher]="matcher">
+        <mat-error *ngIf="lastName.touched && lastName.errors && lastName.errors['pattern']">Please enter a valid name</mat-error>
+        <mat-error *ngIf="lastName.touched && lastName.errors && lastName.errors['required']">Family name is <strong>required</strong></mat-error> 
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+        <mat-label>ID</mat-label>
+        <input name="id" #id="ngModel" [(ngModel)]="user.UserId" matInput required pattern="^[0-9]*$" maxlength="9" minlength="9" [errorStateMatcher]="matcher">
+        <mat-error *ngIf="id.touched && id.errors && id.errors['pattern']">Please enter a valid ID</mat-error>
+        <mat-error *ngIf="id.touched && id.errors && (id.errors['maxlength'] || id.errors['minlength'])">ID must contain exactly 9 digits</mat-error>
+        <mat-error *ngIf="id.touched && id.errors && id.errors['required']">ID is <strong>required</strong></mat-error> 
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+        <mat-label>Date of birth</mat-label>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <input matInput name="date" #date="ngModel" [(ngModel)]="user.DOB" required [matDatepicker]="picker" [errorStateMatcher]="matcher">
+        <mat-datepicker #picker></mat-datepicker>
+        <mat-error *ngIf="date.touched && date.errors && date.errors['required']">Date of birth is <strong>required</strong></mat-error> 
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+        <mat-label>Gender</mat-label>
+        <mat-select name="gender" #gender="ngModel" [(ngModel)]="user.Gender" required [errorStateMatcher]="matcher">
+          <mat-option value="0">Male</mat-option>
+          <mat-option value="1">Female</mat-option>
+        </mat-select>
+        <mat-error *ngIf="gender.touched && gender.errors && gender.errors['required']">Gender is <strong>required</strong></mat-error> 
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+        <mat-label>HMO</mat-label>
+        <mat-select name="hmo" #hmo="ngModel" [(ngModel)]="user.HMO" required [errorStateMatcher]="matcher">
+          <mat-option value="0">Clalit</mat-option>
+          <mat-option value="1">Maccabi</mat-option>
+          <mat-option value="2">Meuhedet</mat-option>
+          <mat-option value="3">Leumit</mat-option>
+        </mat-select>
+        <mat-error *ngIf="hmo.touched && hmo.errors && hmo.errors['required']">HMO is <strong>required</strong></mat-error> 
+    </mat-form-field>
+
+    <h3 *ngIf="user.Children.length>0">Children's details</h3>
+
+    <form id="childForm" *ngFor ="let child of user.Children; let i = index">
+      <p>Child number {{i+1}}</p>
+        <mat-form-field appearance="fill">
+          <mat-label>First name</mat-label>
+          <input name="childFirstName" #childFirstName="ngModel" [(ngModel)]="user.Children[i].FirstName" matInput required pattern="^[a-zA-Zא-ת]*$" [errorStateMatcher]="matcher">
+          <mat-error *ngIf="childFirstName.touched && childFirstName.errors && childFirstName.errors['pattern']">Please enter a valid name</mat-error>
+          <mat-error *ngIf="childFirstName.touched && childFirstName.errors && childFirstName.errors['required']">First name is <strong>required</strong></mat-error> 
+        </mat-form-field> 
+    
+        <mat-form-field appearance="fill">
+          <mat-label>ID</mat-label>
+          <input name="childId" #childId="ngModel" [(ngModel)]="user.Children[i].ChildId" matInput required pattern="^[0-9]*$" maxlength="9" minlength="9" [errorStateMatcher]="matcher">
+          <mat-error *ngIf="childId.touched && childId.errors && childId.errors['pattern']">Please enter a valid ID</mat-error>
+          <mat-error *ngIf="childId.touched && childId.errors && (childId.errors['maxlength'] || childId.errors['minlength'])">ID must contain exactly 9 digits</mat-error>
+          <mat-error *ngIf="childId.touched && childId.errors && childId.errors['required']">ID is <strong>required</strong></mat-error> 
+        </mat-form-field>
+    
+        <mat-form-field appearance="fill">
+          <mat-label>Date of birth</mat-label>
+          <mat-datepicker-toggle matSuffix [for]="childPicker"></mat-datepicker-toggle>
+          <input matInput name="childDate" #childDate="ngModel" [(ngModel)]="user.Children[i].DOB" required  [matDatepicker]="childPicker" [errorStateMatcher]="matcher">
+          <mat-datepicker #childPicker></mat-datepicker>
+          <mat-error *ngIf="childDate.touched && childDate.errors && childDate.errors['required']">Date of birth is <strong>required</strong></mat-error> 
+        </mat-form-field>
+    </form>
+
+        <button type="button" id="plus" mat-fab color="warn" (click)="addChild()">
+            <mat-icon>plus_one</mat-icon>
+        </button>
+
+    <button type="submit" id="submit" mat-raised-button color="primary" >Submit</button>
+    
+</form>
+
